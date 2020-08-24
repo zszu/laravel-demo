@@ -1,0 +1,50 @@
+@charset "utf-8";
+/* CSS Document */
+a{text-decoration:none}
+a:hover{color:#f60}
+body{color:#3d4c63;background:#edf0f5;font:14px/1.5 "PingFang SC","Microsoft Yahei",sans-serif;outline:0;min-width:1366px}
+a{color:#3d4c63}
+a:hover{color:#3c6}
+img{max-width:100%;transition:.3s;-ms-transition:.3s;-moz-transition:.3s;-webkit-transition:.3s;-o-transition:.3s}
+blockquote,body,dd,div,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,input,li,ol,p,pre,td,textarea,th,ul{margin:0;padding:0}
+table{border-collapse:collapse;border-spacing:0}
+fieldset,img{border:0}
+ol,ul{list-style:none}
+caption,th{text-align:left}
+q:after,q:before{content:''}
+abbr,acronym{border:0}
+
+/*插件列表*/
+.container{padding: 20px 10px 0 10px;overflow: hidden;}
+.container ul li{width: 25%;margin-bottom: 20px;position: relative;min-height: 1px;float: left;overflow: hidden}
+.pluginbox{margin:0 10px;padding: 1rem;height: 100%;box-shadow: 0 .125rem .25rem rgba(0,0,0,.075); border: 1px solid #ccc; display: flex;border-radius: .25rem;background-color: #fff;}
+.pluginbox .pic-media-left{padding-right: 1rem;text-align: left;}
+.pluginbox .img-fluid {max-width: 100%;height: auto;}
+.pluginbox .media-body{flex: 1;padding: 0;}
+.pluginbox .media-body h4.title{margin-bottom: .25rem;font-size: 1.25rem;font-family: inherit;font-weight: 500;line-height: 1.2;color: inherit;}
+.pluginbox .media-body h4.title a {color: #333333;}
+.pluginbox .text{height: 3em;font-size: 12px;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;color: #6c757d}
+.pluginbox .mt{margin-top: .5rem}
+.pluginbox .mt .text-price{color: #dc3545;margin-top: .25rem;float: left; display: inline-block;}
+.pluginbox .mt .buy-install{background-color: #26b1e7;border-color: #26b1e7;cursor: pointer;margin-left: .5rem;float: right;padding: .25rem .5rem;font-size: .875rem;line-height: 1.5;border-radius: .2rem;color: #fff;display: inline-block;font-weight: 400;text-align: center;white-space: nowrap;vertical-align: middle;user-select: none;border: 1px solid transparent;}
+.pluginbox .mt .view{margin-top: .25rem;font-size: 14px;float: right;color: #26b1e7;}
+	
+	@media (max-width: 1600px) {
+		.container ul li{width: 33.333%;}
+	}
+	@media (max-width: 1200px) {
+		.container ul li{width: 50%;}
+	}
+	@media (max-width: 1200px) {
+		.container ul li{width: 50%;}
+	}
+/*页码*/
+.pages{overflow:hidden; padding:0 20px;}
+.pages ul{float:right;overflow:hidden}
+.pages ul li{float:left;margin-left:10px}
+.pages ul a{display:block;min-width:40px;padding:0 13px;text-align:center;font-size:16px;color:#333;line-height:35px;border:1px solid #ddd;border-radius:5px;-webkit-transition:.5s;-o-transition:.5s;transition:.5s; background: #fff}
+.pages ul a:hover,.pages ul li.on a{color:#fff;border-color:#1d8f80;background-color:#1d8f80}
+.pages .total{font-size:12px;color:#4d4d4d;line-height:37px;overflow:hidden}
+.pages .total span{color:#1d8f80;margin:0 4px}
+
+.fd_copy{font-size:12px;color:#ccc;line-height:1.4;margin:0 20px;padding:16px 0;text-align:center}
