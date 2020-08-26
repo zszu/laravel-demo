@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\User;
 use App\Http\Controllers\Controller;
@@ -16,8 +17,6 @@ class LoginController extends Controller
 	public function login(){
 
         $code = new CaptchaBuilder;
-
-
     	return view('admin.login' , [
             'body'=>'login-bg',
             'code'=>$code,
@@ -25,16 +24,17 @@ class LoginController extends Controller
     }
     public function doLogin(Request $request){
         $input = $request->except('_token');
+       
 
         //验证数据
         $rule = [
-            'username' => 'require|between:4,18',
-            'password' => 'require|between:6,18|alpha_dash',
+            'username' => 'required|between:4,18',
+            'password' => 'required|between:6,18|alpha_dash',
         ];
         $mssage = [
-            'username.require' => '用户名必须输入',
+            'username.required' => '用户名必须输入',
             'username.between' => '用户名长度必须在4-18位之间',
-            'password.require' => '密码必须输入',
+            'password.required' => '密码必须输入',
             'password.between' => '密码长度必须在4-18位之间',
             'password.alpha_dash' => '密码必须是数字，字母，下划线组成',
         ];
@@ -42,8 +42,21 @@ class LoginController extends Controller
         if($validator->fails()){
             return redirect('admin/login')->withErrors($validator)->withInput();
         }
-    
-        
+        //验证 此用户
+        $model = User::where(['username' => $input['username']])->first();
+        if(!$model){
+            return redirect('admin/login')->with('errors' , '该用户不存在！');
+        }
+
+        if($model->password != md5($input['password'])){
+            return redirect('admin/login')->with('errors' , '密码错误！');
+        }
+        if(!$this->verifyCode($input['verifyCode'])){
+            return redirect('admin/login')->with('errors' , '验证码错误！');
+        }
+        //保存 登录 信息
+        Session::put('admin' , $model);
+        return view('admin.index');
 
     }
     public function code(){
@@ -59,6 +72,7 @@ class LoginController extends Controller
         $phrase = $builder->getPhrase();
     
         //把内容存入session
+
         Session::flash('admin-captcha', $phrase);
     
         //生成图片
@@ -66,9 +80,8 @@ class LoginController extends Controller
         header('Content-Type: image/jpeg');
         $builder->output();
     }
-    public function verifyCode(Request $request){
-        $verifyCode = $request->get('verifyCode');
-        if(Session::get('admin-captcha') == $verifyCode){
+    public function verifyCode($code){
+        if(strtoupper(Session::get('admin-captcha')) == strtoupper($code)){
             return true;
         }else{
             return false;
@@ -76,7 +89,7 @@ class LoginController extends Controller
     }
     // 退出
     public function logout(){
-
+        Session::flush('admin-captcha');
     	return redirect('admin/login');
     }
 

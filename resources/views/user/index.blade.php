@@ -1,73 +1,112 @@
-@extends('layout.main')
+@extends('layout.base')
 
 @section('title' , '管理员列表')
 
 
-@section('right_content')
+@section('content')
     @parent
 
-
-
-	<div class="elem_quote_search">
-		<div class="inline pull-right">
-			<div class="input-inline">
-				<input type="text" value="" placeholder="请输入关键字" class="search_input">
+	<div class="x-nav">
+		<span class="layui-breadcrumb">
+		<a href="{{url('admin/welcome')}}">首页</a>
+		<a>
+			<cite>用户管理</cite></a>
+		</span>
+		<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+		<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+	</div>
+	<div class="layui-fluid">
+		<div class="layui-row layui-col-space15">
+			<div class="layui-col-md12">
+				<div class="layui-card">
+					<div class="layui-card-body ">
+						<form class="layui-form layui-col-space5" action="{{url('admin/user/index')}}">
+							<div class="layui-inline layui-show-xs-block">
+								<input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
+							</div>
+							<div class="layui-inline layui-show-xs-block">
+								<input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
+							</div>
+							<div class="layui-inline layui-show-xs-block">
+								<input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-inline layui-show-xs-block">
+								<button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+							</div>
+						</form>
+					</div>
+					<div class="layui-card-header">
+						<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+						<a class="layui-btn" href="{{url('admin/user/add')}}"><i class="layui-icon"></i>添加</a>
+					</div>
+					<div class="layui-card-body layui-table-body layui-table-main">
+						<table class="layui-table layui-form">
+							<thead>
+								<tr>
+									<th>
+                                      <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary">
+                                    </th>
+									<th width="100">ID</th>
+									<th style="text-align:left;">会员名</th>
+									<th>注册时间</th>
+									<th>最后登录时间</th>
+									<th>状态</th>
+									<th width="300">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+							@foreach($models as $model)
+							<tr>
+								<td>
+									<input type="checkbox" name="id" value="1"   lay-skin="primary"> 
+								</td>
+								<td>{{$model->id}}</td>
+								<td style="text-align:left;">{{$model->username}}</td>
+								<td>{{date('Y-m-d H:i:s' , $model->created_at)}}</td>
+								<td>{{date('Y-m-d H:i:s' , $model->last_login_at)}}</td>
+								<td class="td-status"> <span class="layui-btn layui-btn-{{$model->status  == 0 ? 'danger' : 'normal'}} layui-btn-mini">{{$model->status  == 0 ? '禁用' : '已启用'}}</span></td>
+								<td class="td-manage">
+									<a href="/user/edit/{{$model->id}}" title="编辑"> <i class="layui-icon">&#xe601;</i></a>
+									
+									<a href="/user/delete/{{$model->id}}" title="删除"><i class="layui-icon">&#xe640;</i></a>
+								</td>
+							</tr>
+							@endforeach
+							</tbody>
+						</table>
+					</div>
+					<div class="layui-card-body ">
+						<div class="page">
+							<div>
+								<a class="prev" href="">&lt;&lt;</a>
+								<a class="num" href="">1</a>
+								<span class="current">2</span>
+								<a class="num" href="">3</a>
+								<a class="num" href="">489</a>
+								<a class="next" href="">&gt;&gt;</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<input class="default_btn" value="查询" type="button">
 		</div>
-		
-		<div class="inline">
-			<a class="default_btn btn_add" href="{{url('user/add')}}">新增</a>
-		</div>
-		<div class="inline">
-			<a class="default_btn btn-batchDel">批量删除</a>
-		</div>
-		
-	</div>
+	</div> 
+	<script>
+      layui.use(['laydate','form'], function(){
+        var laydate = layui.laydate;
+        
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#start' //指定元素
+        });
 
-	<div class="form_table_list">
-		<table class="table">
-			<thead>
-				<tr>
-					<th width="50"><input type="checkbox" name=""></th>
-					<th width="100">ID</th>
-					<th style="text-align:left;">会员名</th>
-					<th>注册时间</th>
-					<th>最后登录时间</th>
-					<th>状态</th>
-					<th width="300">操作</th>
-				</tr> 
-			</thead>
-			<tbody>
-				@foreach($models as $model)
-				<tr>
-					<td><input type="checkbox" name=""></td>
-					<td>{{$model->id}}</td>
-					<td style="text-align:left;">{{$model->username}}</td>
-					<td>{{date('Y-m-d H:i:s' , $model->created_at)}}</td>
-					<td>{{date('Y-m-d H:i:s' , $model->last_login_at)}}</td>
-					<td> {{$model->status  == 0 ? '禁止' : '正常'}}</td>
-					<td>
-						<a href="/user/edit/{{$model->id}}" class="btn_mini btn_edit"> 编辑</a>
-						<a href="/user/delete/{{$model->id}}" class="btn_mini btn_del item-delete"> 删除</a>
-					</td>
-				</tr>
-				@endforeach
-			</tbody>
-		</table>
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#end' //指定元素
+        });
 
-		<div class="pages">
-			<ul>
-				<li class="on"><a href="">1</a></li>
-				<li><a href="">2</a></li>
-				<li><a href="">3</a></li>
-				<li><a href="">4</a></li>
-				<li><a href="">5</a></li>
-				<li class="pages-next"><a href="">下一页</a></li>
-				<li class="pages-end"><a href="">末页</a></li>
-			</ul>
-			<div class="total">共有<span>1</span>条记录</div>
-		</div>
 
-	</div>
+      });
+
+    </script>
 @endsection

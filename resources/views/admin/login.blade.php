@@ -2,14 +2,24 @@
 
 @section('title' , '欢迎页面')
 
-
 @section('content')
+    <link rel="stylesheet" href="/static/css/login.css">
 
     <div class="login layui-anim layui-anim-up">
         <div class="message">后台-管理登录</div>
         <div id="darkbannerwrap"></div>
         
         <form method="post" class="layui-form" action="{{url('admin/doLogin')}}">
+                @if(count((array)$errors) > 0)
+                    @if(is_object($errors))
+                        @foreach($errors->all() as $item)
+                            <li>{{$item}}</li>
+                        @endforeach
+                    
+                    @else
+                        <li>{{$errors}}</li>
+                    @endif
+                @endif
             {{csrf_field()}}
             <input name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
             <hr class="hr15">
@@ -25,7 +35,6 @@
         </form>
     </div>
 
-    <link rel="stylesheet" href="/static/css/login.css">
 
 
 @endsection

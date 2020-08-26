@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-    public $table = 'zz_user';
+    public $table = 'user';
     public $primaryKey = 'id';
 
 

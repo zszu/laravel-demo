@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layout.base')
 
 @section('title' , '欢迎页面')
 
@@ -184,7 +184,8 @@
             </div>
             <style id="welcome_style"></style>
             <div class="layui-col-md12">
-                <blockquote class="layui-elem-quote layui-quote-nm">感谢layui,百度Echarts,jquery,本系统由x-admin提供技术支持。</blockquote></div>
+                <blockquote class="layui-elem-quote layui-quote-nm">copyright @ zsz。</blockquote>
+            </div>
         </div>
     </div>
 

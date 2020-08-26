@@ -10,15 +10,20 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/welcome', function () {
-    return view('welcome');
+Route::group(['prefix'=>'admin' , 'namespace'=>'Admin','middleware'=>'isLogin'] , function(){
+    Route::get('index', function () {
+        return view('admin.index');
+    });
+    Route::get('welcome', function () {
+        return view('welcome');
+    });
+    Route::get('logout' , 'LoginController@logout');
 });
 
+
+
 Route::get('admin/login', 'Admin\LoginController@login');
-Route::post('admin/doLogin', 'Admin\LoginController@login');
+Route::post('admin/doLogin', 'Admin\LoginController@doLogin');
 Route::get('admin/code', 'Admin\LoginController@code');
 
 Route::get('user/index', 'UserController@index');
