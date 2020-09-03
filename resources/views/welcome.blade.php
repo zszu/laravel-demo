@@ -127,37 +127,53 @@
                             <tbody>
                                 <tr>
                                     <th>xxx版本</th>
-                                    <td>1.0.180420</td></tr>
+                                    <td>1.0.180420</td>
+                                </tr>
                                 <tr>
                                     <th>服务器地址</th>
-                                    <td>x.xuebingsi.com</td></tr>
+                                    <td>{{$_SERVER['SERVER_NAME']}}</td>
+                                </tr>
                                 <tr>
                                     <th>操作系统</th>
-                                    <td>WINNT</td></tr>
+                                    <td>{{php_uname()}}</td>
+                                </tr>
                                 <tr>
                                     <th>运行环境</th>
-                                    <td>Apache/2.4.23 (Win32) OpenSSL/1.0.2j mod_fcgid/2.3.9</td></tr>
+                                    <td>{{$_SERVER['SERVER_SOFTWARE']}}</td>
+                                </tr>
                                 <tr>
                                     <th>PHP版本</th>
-                                    <td>5.6.27</td></tr>
+                                    <td>{{PHP_VERSION}}</td>
+                                </tr>
                                 <tr>
                                     <th>PHP运行方式</th>
-                                    <td>cgi-fcgi</td></tr>
+                                    <td>{{php_sapi_name()}}</td>
+                                </tr>
                                 <tr>
                                     <th>MYSQL版本</th>
-                                    <td>5.5.53</td></tr>
+                                    <?php $v = "version()";?>
+                                    <td>{{Illuminate\Support\Facades\DB::select('select version()')[0]->$v}}</td>
+                                </tr>
                                 <tr>
-                                    <th>ThinkPHP</th>
-                                    <td>5.0.18</td></tr>
+                                    <th>Laravel</th>
+                                    <td>{{app()::VERSION}}</td>
+                                </tr>
                                 <tr>
                                     <th>上传附件限制</th>
-                                    <td>2M</td></tr>
+                                    <td>{{get_cfg_var ("upload_max_filesize")? : "不允许"}}</td>
+                                </tr>
                                 <tr>
                                     <th>执行时间限制</th>
-                                    <td>30s</td></tr>
+                                    <td>{{get_cfg_var ("max_execution_time") . '秒 '}}</td>
+                                </tr>
+                                <tr>
+                                    <th>脚本运行占用最大内存</th>
+                                    <td>{{get_cfg_var ("memory_limit")? : "无"}}</td>
+                                </tr>
                                 <tr>
                                     <th>剩余空间</th>
-                                    <td>86015.2M</td></tr>
+                                    <td>86015.2M</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
