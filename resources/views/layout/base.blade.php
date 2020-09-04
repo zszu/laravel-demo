@@ -35,10 +35,6 @@
         @yield('content')
 
 
-        <script>
-            // $('.item-delete').linkConf\irm('确定要删除该项？');
-        </script>
-
     </body>
 </html>
   

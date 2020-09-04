@@ -1,58 +1,62 @@
-@extends('layout.main')
+@extends('layout.base')
 
 @section('title' , '管理员添加')
 
 
-@section('right_content')
+@section('content')
     @parent
-    <div class="page-content-wrap">
-        <div class="tit">
-            <h3>修改会员</h3>
-            <a href="{{url('/user/index')}}" class="btn-last-page">返 回</a>
-        </div>
-        <div class="content">
-            <table cellspacing="0" cellpadding="0" width="100%" class="maintable">
+    <div class="layui-fluid">
+            <div class="layui-row">
                 <form action="{{url('/user/save')}}"  method="post">
                     <tbody>
                         {{csrf_field()}}
                             <!-- 场景 -->
                         <input type="hidden" name="scenes" placeholder="" class="inp" value="edit">
                         <input type="hidden" name="id" placeholder="" class="inp" value="{{$model->id}}">
+
+                        <div class="layui-form-item">
+                            <label  class="layui-form-label">
+                                用户名：
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text"  name="username"  autocomplete="off" class="layui-input" value="{{$model->username}}">
+                            </div>
+                        </div>
                         
-                        <tr>
-                            <th>用户名：</th>
-                            <td>
-                                <input type="text" name="username" placeholder="" class="inp" value="{{$model->username}}">
-                            </td>
-                        </tr>
+                        <div class="layui-form-item">
+                            <label  class="layui-form-label">
+                                密码：
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="password"  name="password"  autocomplete="off" placeholder="请输入密码" class="layui-input" value="{{$model->password}}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label  class="layui-form-label">
+                                邮箱：
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text"  name="email"  autocomplete="off" class="layui-input" value="{{$model->email}}">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label  class="layui-form-label">
+                                手机：
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text"  name="mobile"  autocomplete="off" class="layui-input" value="{{$model->mobile}}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label  class="layui-form-label">
+                                QQ：
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text"  name="qq"  autocomplete="off" class="layui-input" value="{{$model->qq}}">
+                            </div>
+                        </div>
                         
-                        <tr>
-                            <th>密码：</th>
-                            <td>
-                                <input type="password" name="password" placeholder="请输入密码" class="inp" value="{{$model->password}}">
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <th>邮箱：</th>
-                            <td>
-                                <input type="text" name="email" placeholder="" class="inp" value="{{$model->email}}">
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <th>手机：</th>
-                            <td>
-                                <input type="text" name="mobile" placeholder="" class="inp" value="{{$model->mobile}}">
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <th>QQ：</th>
-                            <td>
-                                <input type="text" name="qq" placeholder="" class="inp" value="{{$model->qq}}">
-                            </td>
-                        </tr>
                         
                         <tr>
                             <th>会员状态：</th>
@@ -64,18 +68,13 @@
                                 <span>设为禁止后前台不可登录。</span>
                             </td>
                         </tr>
-
-                        <tr class="btn_tab">
-                            <th></th>
-                            <td>
-                                <button class="btn-normal">立即提交</button>
-                            </td>
-                        </tr>
+                        <div class="layui-form-item">
+                            <label for="L_repass" class="layui-form-label"></label>
+                            <button class="layui-btn"  lay-submit="">立刻提交</button>
+                        </div>
 
                     </tbody>
                 </form>
-            </table>
-            
         </div>
     </div>
 @endsection
